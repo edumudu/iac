@@ -1,0 +1,32 @@
+- name: Setup my Arch workstation
+  hosts: localhost       # Tells Ansible to run on this machine
+  connection: local      # Don't try to use SSH
+  
+  tasks:
+    - name: Install official repo packages
+      become: true       # Run this task with sudo
+      package:
+        name:
+          - git
+          - neovim
+          - htop
+          - fastfetch
+        state: present   # Ensure they are installed
+
+    - name: Clone yay-bin AUR repo
+      git:
+        repo: https://aur.archlinux.org/yay-bin.git
+        dest: /tmp/yay-bin
+
+    - name: Build and install yay
+      command: makepkg -si --noconfirm
+      args:
+        chdir: /tmp/yay-bin
+        creates: /usr/bin/yay  # Makes this task idempotent!
+
+    - name: Ensure my custom config directory exists
+      file:
+        path: "{{ ansible_facts['env']['HOME'] }}/projects"
+        state: directory
+        mode: '0755'
+
