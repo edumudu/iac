@@ -1,0 +1,45 @@
+services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - /docker/appdata/nginx/data:/data
+      - /docker/appdata/nginx/letsencrypt:/etc/letsencrypt
+
+  fail2ban:
+    image: crazymax/fail2ban:1.1.0
+    container_name: fail2ban
+    restart: unless-stopped
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "/docker/appdata/fail2ban/data:/data"
+      - "/var/log/auth.log:/var/log/auth.log:ro"
+      - "/docker/appdata/nginx/data/logs/:/log/npm/:ro"
+      - "/docker/appdata/fail2ban/f2b-logs:/f2b-logs:rw"
+    environment:
+      - TZ=America/Sao_Paulo
+      - F2B_LOG_TARGET=/f2b-logs/fail2ban.log
+
+      - F2B_LOG_LEVEL=INFO
+      - F2B_DB_PURGE_AGE=1d
+      - F2B_MAX_RETRY=3
+      - SSMTP_HOST=$SSMTP_HOST
+      - SSMTP_PORT=587
+      - SSMTP_HOSTNAME=$SSMTP_HOSTNAME
+      - SSMTP_USER=$SSMTP_USER
+      - SSMTP_PASSWORD=$SSMTP_PASSWORD
+      - SSMTP_TLS=YES
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
+

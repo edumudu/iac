@@ -13,6 +13,15 @@
           - fastfetch
         state: present   # Ensure they are installed
 
+    - name: Allow wheel group to run pacman without a password (for yay)
+      become: true
+      lineinfile:
+        path: /etc/sudoers.d/wheel-pacman
+        line: '%wheel ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+        create: yes
+        validate: 'visudo -cf %s'
+        mode: '0440'
+
     - name: Clone yay-bin AUR repo
       git:
         repo: https://aur.archlinux.org/yay-bin.git
@@ -23,6 +32,17 @@
       args:
         chdir: /tmp/yay-bin
         creates: /usr/bin/yay  # Makes this task idempotent!
+
+    - name: Install AUR packages
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - talosctl                 # (Replace these with what you actually want)
+          - packer
+          - bws-bin
+          - go-task 
+          - opentofu-bin
+        state: present
 
     - name: Ensure my custom config directory exists
       file:

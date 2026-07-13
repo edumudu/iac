@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+services:
+  blocky:
+    image: spx01/blocky:v0.33.0
+    container_name: blocky
+    restart: unless-stopped
+    hostname: blocky
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "4000:4000/tcp"
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ./config.yml:/app/config.yml:ro
+    healthcheck:
+      test: ["CMD", "/app/blocky", "healthcheck"]
+      interval: 1m
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "10"
