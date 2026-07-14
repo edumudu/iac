@@ -20,6 +20,8 @@ customDNS:
   mapping:
     ubu.lan: 10.69.69.2 ## For Loki
     nas.lan: 10.0.0.10 ## For NAS
+    home.edumudu.dev: 192.168.0.17 ## NPM reverse proxy; covers all *.home.edumudu.dev
+    home.lab: 192.168.0.17   # covers sonarr.home.lab and any *.home.lab
 
 blocking:
   denylists:
