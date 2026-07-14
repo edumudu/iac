@@ -7,3 +7,18 @@ services:
     ports:
       - 3041:3000
 
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    container_name: scrutiny
+    cap_add:
+      - SYS_RAWIO
+    volumes:
+      - /run/udev:/run/udev:ro
+      - /docker/appdata/scrutiny/config:/opt/scrutiny/config
+      - /docker/appdata/scrutiny/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - /dev/sda
+      - /dev/sdb
+    ports:
+      - 3042:8080
+
