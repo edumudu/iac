@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: 'host'
+    restart: 'unless-stopped'
+    user: 1000:1000
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    volumes:
+      - /docker/appdata/jellyfin/config:/config
+      - /docker/appdata/jellyfin/cache:/nvmecache
+      - /docker/appdata/jellyfin/metadata:/nvmemetadata
+      - /docker/appdata/jellyfin/transcodes:/transcodes
+      - /home/edumudu/services/medias/data/media:/data/media
+      - /home/edumudu/storage/hd1/fake-nas/qbitty/data:/data/qbittorrent:rw
+    group_add:
+      - "989"
+    # ports:
+    #   - 8096:8096
+    environment:
+      - JELLYFIN_DATA_DIR=/config/data
+      - JELLYFIN_CONFIG_DIR=/config
+      - JELLYFIN_LOG_DIR=/config/log
+      - JELLYFIN_CACHE_DIR=/nvmecache
+      - PUID=1000
+      - PGID=1000
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+ 
