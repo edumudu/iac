@@ -40,8 +40,10 @@
           - talosctl                 # (Replace these with what you actually want)
           - packer
           - bws-bin
+          - 1password-cli
           - go-task 
           - opentofu-bin
+          - terraform
         state: present
 
     - name: Ensure my custom config directory exists
