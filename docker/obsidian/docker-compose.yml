@@ -1,0 +1,19 @@
+services:
+  couchdb:
+    image: couchdb:3.4.2
+    container_name: obsidian-livesync
+    restart: unless-stopped
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /docker/appdata/obsidian-livesync/data:/opt/couchdb/data
+      - ./local.ini:/opt/couchdb/etc/local.d/local.ini
+    networks:
+      - npm
+
+networks:
+  npm:
+    name: npm_default
+    external: true

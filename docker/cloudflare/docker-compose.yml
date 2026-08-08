@@ -1,0 +1,17 @@
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:2026.7.2
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - npm
+    command: tunnel --no-autoupdate run
+
+networks:
+  npm:
+    name: npm_default
+    external: true
+
