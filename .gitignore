@@ -62,4 +62,9 @@ scripts/radarr-custom-format-scores-fixed.sh
 *.bw-provider-state
 kubernetes/apps/default/homepage/app/config.yaml
 docker/ai/mcp_settings.json
+# CouchDB rewrites this file with the node uuid and hashed admin password
+docker/obsidian/local.ini
+# Cloudflare tunnel secrets: tunnel credentials + account origin cert
+docker/cloudflare/config/credentials.json
+docker/cloudflare/config/cert.pem
 terraform/seerr/
