@@ -14,8 +14,8 @@ services:
       - /docker/appdata/jellyfin/cache:/nvmecache
       - /docker/appdata/jellyfin/metadata:/nvmemetadata
       - /docker/appdata/jellyfin/transcodes:/transcodes
-      - /home/edumudu/services/medias/data/media:/data/media
-      - /home/edumudu/storage/hd1/fake-nas/qbitty/data:/data/qbittorrent:rw
+      - ~/storage/hd1/fake-nas/data/media:/data/media
+
     group_add:
       - "989"
     # ports:

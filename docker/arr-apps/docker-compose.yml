@@ -37,8 +37,7 @@ services:
       - TZ=America/Sao_Paulo
     volumes:
       - /home/edumudu/services/medias/bazarr/appdata/config:/config
-      - /home/edumudu/services/medias/data/media/radarr:/movies 
-      - /home/edumudu/services/medias/data/media/tv-sonarr:/tv
+      - ~/storage/hd1/fake-nas/data:/data
     ports:
       - 6767:6767
 
@@ -52,11 +51,8 @@ services:
       - PGID=1000
     volumes:
       - /home/edumudu/services/medias/radarr/appdata/config:/config
+      - ~/storage/hd1/fake-nas/data:/data
 
-      - /home/edumudu/storage/hd1/fake-nas/qbitty/data/torrents:/data/torrents:rw
-
-      - /home/edumudu/services/medias/data/media/radarr/movies:/data/movies
-      - /home/edumudu/services/medias/data/media/radarr/anime:/data/animes
     ports:
       - '7878:7878'
 
@@ -70,8 +66,7 @@ services:
       - PGID=1000
     volumes:
       - /home/edumudu/services/medias/sonarr/appdata/config:/config
-      - /home/edumudu/storage/hd1/fake-nas/qbitty/data/torrents:/data/torrents:rw
-      - /home/edumudu/services/medias/data/media/tv-sonarr:/data/tv
+      - ~/storage/hd1/fake-nas/data:/data
     ports:
       - '8989:8989'
 

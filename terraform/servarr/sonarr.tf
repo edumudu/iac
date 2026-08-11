@@ -4,7 +4,7 @@ resource "sonarr_download_client_qbittorrent" "qbitty" {
   name                       = "qBittorrent"
   host                       = "192.168.0.17"
   url_base                   = "/"
-  tv_category                = "tv-sonarr"
+  tv_category                = "tv"
   port                       = 8080
   first_and_last             = false
   sequential_order           = true

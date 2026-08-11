@@ -15,7 +15,7 @@ services:
       ## Fix failed 7za return code 2 errors when unpacking certain nzbs
       - ./custom-init.sh:/custom-cont-init.d/99-fix-7z.sh
       - ./7zz-wrapper:/custom-cont-init.d/7zz-wrapper
-      - /home/edumudu/storage/hd1/fake-nas/sabnzbd/data:/data:rw
+      - ~/storage/hd1/fake-nas/data/usenet:/data/usenet
     ports:
       - 8282:8080
  
@@ -47,7 +47,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/qbitty:/config:rw
-      - /home/edumudu/storage/hd1/fake-nas/qbitty/data:/data:rw
+      - ~/storage/hd1/fake-nas/data/torrents:/data/torrents
     ports:
       - 8080:8080
       - '62609:62609'
