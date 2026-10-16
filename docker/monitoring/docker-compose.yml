@@ -32,5 +32,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
+  gatus:
+    image: twinproduction/gatus:v5.37.0
+    ports:
+      - 8080:8080
+    volumes:
+      - ./gatus-config:/config
+
 volumes:
   portainer_data:

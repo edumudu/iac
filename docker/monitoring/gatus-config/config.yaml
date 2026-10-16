@@ -1,0 +1,12 @@
+endpoints:
+  - name: Blocky DNS
+    group: dns
+    url: 192.168.0.10
+    interval: 30s
+    dns:
+      query-type: "A"
+      query-name: "example.com"
+    conditions:
+      - "[DNS_RCODE] == NOERROR"
+      - "[RESPONSE_TIME] < 200"
+
