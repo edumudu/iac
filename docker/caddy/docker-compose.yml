@@ -1,0 +1,18 @@
+services:
+  caddy:
+    build: .
+    container_name: caddy
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"               # HTTP/3
+    volumes:
+      - ./conf:/etc/caddy:ro        # holds the Caddyfile
+      - caddy_data:/data            # certs and ACME account, keep this
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,79 @@
+*.home.edumudu.dev {
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+	}
+
+	@jellyfin host jellyfin.home.edumudu.dev
+	handle @jellyfin {
+		reverse_proxy 192.168.0.17:8096
+	}
+
+	@sonarr host sonarr.home.edumudu.dev
+	handle @sonarr {
+		reverse_proxy 192.168.0.17:8989
+	}
+
+	@radarr host radarr.home.edumudu.dev
+	handle @radarr {
+		reverse_proxy 192.168.0.17:7878
+	}
+
+	@prowlarr host prowlarr.home.edumudu.dev
+	handle @prowlarr {
+		reverse_proxy 192.168.0.17:9696
+	}
+
+	@seerr host seerr.home.edumudu.dev
+	handle @seerr {
+		reverse_proxy 192.168.0.17:5055
+	}
+
+	@bit host bit.home.edumudu.dev
+	handle @bit {
+		reverse_proxy 192.168.0.17:8080
+	}
+
+	@chat host chat.home.edumudu.dev
+	handle @chat {
+		reverse_proxy 192.168.0.17:3050
+	}
+
+	@comfy host comfy.home.edumudu.dev
+	handle @comfy {
+		reverse_proxy 192.168.0.17:8188
+	}
+
+	@livesync host livesync.home.edumudu.dev
+	handle @livesync {
+		reverse_proxy 192.168.0.17:5984
+	}
+
+	@portainer host portainer.home.edumudu.dev
+	handle @portainer {
+		reverse_proxy https://192.168.0.17:9443 {
+			transport http {
+				tls_insecure_skip_verify
+			}
+		}
+	}
+
+	@scrunity host scrunity.home.edumudu.dev
+	handle @scrunity {
+		reverse_proxy 192.168.0.17:3042
+	}
+
+	@wud host wud.home.edumudu.dev
+	handle @wud {
+		reverse_proxy 192.168.0.17:3041
+	}
+
+	@gatus host gatus.home.edumudu.dev
+	handle @gatus {
+		reverse_proxy 192.168.0.10:8080
+	}
+
+	handle {
+		abort
+	}
+}
+

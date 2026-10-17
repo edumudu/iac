@@ -1,4 +1,5 @@
 endpoints:
+  # --- DNS ---
   - name: Blocky DNS
     group: dns
     url: 192.168.0.10
@@ -10,3 +11,78 @@ endpoints:
       - "[DNS_RCODE] == NOERROR"
       - "[RESPONSE_TIME] < 200"
 
+  # layer checks, for triage
+  - name: Caddy (443 open)
+    group: infra-layers
+    url: tcp://192.168.0.10:443
+    conditions: ["[CONNECTED] == true"]
+
+  - name: Media machine (jellyfin port, direct)
+    group: infra-layers
+    url: tcp://192.168.0.17:8096
+    conditions: ["[CONNECTED] == true"]
+
+  # --- media ---
+  - name: jellyfin
+    group: media
+    url: https://jellyfin.home.edumudu.dev
+    conditions:
+      - "[STATUS] < 500"
+      - "[CERTIFICATE_EXPIRATION] > 168h"   # watches the wildcard cert (all hosts share it)
+
+  - name: sonarr
+    group: media
+    url: https://sonarr.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: radarr
+    group: media
+    url: https://radarr.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: prowlarr
+    group: media
+    url: https://prowlarr.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: seerr
+    group: media
+    url: https://seerr.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: bit
+    group: media
+    url: https://bit.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  # --- apps ---
+  - name: chat
+    group: apps
+    url: https://chat.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: comfy
+    group: apps
+    url: https://comfy.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: livesync
+    group: apps
+    url: https://livesync.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  # --- infra ---
+  - name: portainer
+    group: infra
+    url: https://portainer.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: scrunity
+    group: infra
+    url: https://scrunity.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
+
+  - name: wud
+    group: infra
+    url: https://wud.home.edumudu.dev
+    conditions: ["[STATUS] < 500"]
