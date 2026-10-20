@@ -7,11 +7,11 @@ services:
     environment:
       - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
     networks:
-      - npm
+      - caddy
     command: tunnel --no-autoupdate run
 
 networks:
-  npm:
-    name: npm_default
+  caddy:
+    name: caddy_default
     external: true
 

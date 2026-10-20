@@ -16,7 +16,7 @@ variable "domain" {
 }
 
 variable "lan_domain" {
-  description = "LAN domain NPM serves its vhosts and wildcard cert on"
+  description = "LAN domain Caddy serves its vhosts and wildcard cert on"
   type        = string
   default     = "home.edumudu.dev"
 }

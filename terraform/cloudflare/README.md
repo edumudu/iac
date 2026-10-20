@@ -39,6 +39,7 @@ After the first successful `terraform apply`:
 1. Add the subdomain to `local.public_hostnames` in
    `zero_trust_tunnel_config.tf`, then `terraform apply` (no restart needed —
    cloudflared picks up remote config changes live).
-2. Add the proxy host in NPM for `<name>.home.edumudu.dev`.
+2. Add the host block in the Caddyfile (`docker/caddy/conf/Caddyfile`) for
+   `<name>.home.edumudu.dev`.
 3. DNS route (until DNS records are terraformed too):
    `docker run --rm -u "$(id -u)" -v ./config:/etc/cloudflared -e TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem cloudflare/cloudflared:2026.7.2 tunnel route dns home <name>.edumudu.dev`
